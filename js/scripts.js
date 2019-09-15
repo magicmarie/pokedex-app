@@ -7,7 +7,7 @@ var repository = [
     {
         name : "Nidorina",
         height : 0.8,
-        types : ["Poison-point", "Hustle, Rivalry"]
+        types : ["Poison-point", "Hustle", "Rivalry"]
     },
     {
         name : "Arcanine",
@@ -16,9 +16,8 @@ var repository = [
     }
 ]
 
-for (i = 0; i < repository.length; i++ ) {
-    if (repository[i]["height"] > 1.5)
-    document.write('<p>' + ' name: ' + repository[i]['name'] + ' height: ' + repository[i]['height'] + "wow that's big" + '</p>');
-    else
-    document.write('<p>' + ' name: ' + repository[i]['name'] + ' height: ' + repository[i]['height'] + '</p>');
-}
+repository.forEach(function(pokeman) {
+    Object.keys(pokeman).forEach(function(item) {
+    document.write('<p><b>' + item + '</b>: ' + pokeman[item] + '</p>');
+    });
+});
