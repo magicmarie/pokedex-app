@@ -1,3 +1,5 @@
+var pokemonRepository = (function () {
+
 var repository = [
     {
         name : "Pikachu",
@@ -14,10 +16,24 @@ var repository = [
         height : 1.9,
         types : ["Flash-fire", "Intimidate", "Justified"]
     }
-]
+];
 
-repository.forEach(function(pokeman) {
-    Object.keys(pokeman).forEach(function(item) {
-    document.write('<p><b>' + item + '</b>: ' + pokeman[item] + '</p>');
+    function add(pokemon) {
+        repository.push(pokemon);
+    }
+
+    function getAll() {
+        return repository;
+    }
+
+    return {
+        add: add,
+        getAll: getAll
+    };
+})()
+
+pokemonRepository.getAll().forEach(function(pokemon) {
+    Object.keys(pokemon).forEach(function(item) {
+    document.write('<p><b>' + item + '</b>: ' + pokemon[item] + '</p>');
     });
 });
