@@ -33,7 +33,13 @@ var repository = [
 })()
 
 pokemonRepository.getAll().forEach(function(pokemon) {
-    Object.keys(pokemon).forEach(function(item) {
-    document.write('<p><b>' + item + '</b>: ' + pokemon[item] + '</p>');
-    });
+    var $ulItem = document.querySelector(".pokemon-list");
+    var $listItem = document.createElement('li');
+    var $button = document.createElement('button');
+
+    $button.innerText = pokemon.name;
+    $button.classList.add('pokemon-button');
+
+    $listItem.appendChild($button);
+    $ulItem.appendChild($listItem);
 });
