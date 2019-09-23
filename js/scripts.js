@@ -26,20 +26,35 @@ var repository = [
         return repository;
     }
 
+    function addListItem(pokemon) {
+        var $ulItem = document.querySelector(".pokemon-list");
+        var $listItem = document.createElement('li');
+        var $button = document.createElement('button');
+
+        $button.innerText = pokemon.name;
+        $button.classList.add('pokemon-button');
+        $listItem.appendChild($button);
+        $ulItem.appendChild($listItem);
+        addEventListenerButton($button, pokemon);
+    }
+
+    function showDetails(pokemon) {
+        console.log(pokemon);
+    }
+
+    function addEventListenerButton(button, pokemon) {
+        button.addEventListener('click', function(event) {
+            showDetails(pokemon);
+        });
+    };
+
     return {
         add: add,
-        getAll: getAll
+        getAll: getAll,
+        addListItem: addListItem
     };
-})()
+})();
 
 pokemonRepository.getAll().forEach(function(pokemon) {
-    var $ulItem = document.querySelector(".pokemon-list");
-    var $listItem = document.createElement('li');
-    var $button = document.createElement('button');
-
-    $button.innerText = pokemon.name;
-    $button.classList.add('pokemon-button');
-
-    $listItem.appendChild($button);
-    $ulItem.appendChild($listItem);
+    pokemonRepository.addListItem(pokemon);
 });
