@@ -26,6 +26,7 @@ var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
     function showDetails(pokemon) {
         pokemonRepository.loadDetails(pokemon).then( function (){
             console.log(pokemon);
+            modalDetails.showModal(pokemon);
         });
     }
 
@@ -68,6 +69,62 @@ var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
         addListItem: addListItem,
         loadList: loadList,
         loadDetails: loadDetails,
+    };
+})();
+
+var modalDetails = (function (){
+    function showModal(details) {
+        var $modalContainer = document.querySelector("#modal-container");
+        $modalContainer.innerHTML = '';
+
+        var modal = document.createElement('div');
+        modal.classList.add('modal');
+
+        var closeButton = document.createElement('button');
+        closeButton.classList.add('modal-close');
+        closeButton.innerText = 'X';
+        closeButton.addEventListener('click', hideModal);
+
+        var titleContent = document.createElement('h1');
+        titleContent.innerText = details.name;
+
+        var content = document.createElement('p');
+        content.innerText = 'Height: ' + details.height;
+
+        var img = document.createElement('img');
+        img.src = details.imageUrl;
+        img.classList.add('pokemon-image');
+
+        modal.appendChild(closeButton);
+        modal.appendChild(titleContent);
+        modal.appendChild(img);
+        modal.appendChild(content);
+        $modalContainer.appendChild(modal);
+
+        $modalContainer.classList.add('is-visible');
+    }
+
+    window.addEventListener('keydown', (e) => {
+        var $modalContainer = document.querySelector('#modal-container');
+        if (e.key === 'Escape' && $modalContainer.classList.contains('is-visible')) {
+          hideModal();  
+        }
+      });
+      
+    $modalContainer.addEventListener('click', (e) => {
+        var target = e.target;
+        if (target === $modalContainer) {
+          hideModal();
+        }
+      });
+
+    function hideModal() {
+        var $modalContainer = document.querySelector('#modal-container');
+        $modalContainer.classList.remove('is-visible');
+      }
+
+    return {
+        showModal: showModal,
     };
 })();
 
